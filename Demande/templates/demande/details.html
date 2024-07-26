@@ -1,0 +1,1281 @@
+{% load static%} {{demandes}}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+
+    <title>SB Admin 2 - Tables</title>
+
+    <!-- Custom fonts for this template -->
+
+    <link
+      href="vendor/fontawesome-free/css/all.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link
+      href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+      rel="stylesheet"
+    />
+
+    <!-- Custom styles for this template -->
+    <link href="css/sb-admin-2.min.css" rel="stylesheet" />
+    <link href="{% static 'css/index.css'%}" rel="stylesheet" />
+    <script src="{% static 'js/index.js'%}"></script>
+    <script src="{% static 'js/jquery-3.7.1.min.js' %}"></script>
+    <!-- Custom styles for this page -->
+    <link
+      href="vendor/datatables/dataTables.bootstrap4.min.css"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body id="page-top">
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+      <!-- Sidebar -->
+      {% include "./Sidebar.html"%}
+      <!-- End of Sidebar -->
+
+      <!-- Content Wrapper -->
+      <div id="content-wrapper" class="d-flex flex-column">
+        <!-- Main Content -->
+        <div id="content">
+          <!-- Topbar -->
+          {% include "./Topbar.html"%}
+          <!-- End of Topbar -->
+          <style>
+            body {
+              margin-top: 20px;
+            }
+            .card-style1 {
+              box-shadow: 0px 0px 10px 0px rgb(89 75 128 / 9%);
+            }
+            .border-0 {
+              border: 0 !important;
+            }
+            .card {
+              position: relative;
+              display: flex;
+              flex-direction: column;
+              min-width: 0;
+              word-wrap: break-word;
+              background-color: #fff;
+              background-clip: border-box;
+              border: 1px solid rgba(0, 0, 0, 0.125);
+              border-radius: 0.25rem;
+            }
+
+            section {
+              padding: 120px 0;
+              overflow: hidden;
+              background: #fff;
+            }
+            .mb-2-3,
+            .my-2-3 {
+              margin-bottom: 2.3rem;
+            }
+
+            .section-title {
+              font-weight: 600;
+              letter-spacing: 2px;
+              text-transform: uppercase;
+              margin-bottom: 10px;
+              position: relative;
+              display: inline-block;
+            }
+            .text-primary {
+              color: #ceaa4d !important;
+            }
+            .text-secondary {
+              color: #15395a !important;
+            }
+            .font-weight-600 {
+              font-weight: 600;
+            }
+            .display-26 {
+              font-size: 1.3rem;
+            }
+
+            @media screen and (min-width: 992px) {
+              .p-lg-7 {
+                padding: 4rem;
+              }
+            }
+            @media screen and (min-width: 768px) {
+              .p-md-6 {
+                padding: 3.5rem;
+              }
+            }
+            @media screen and (min-width: 576px) {
+              .p-sm-2-3 {
+                padding: 2.3rem;
+              }
+            }
+            .p-1-9 {
+              padding: 1.9rem;
+            }
+
+            .bg-secondary {
+              background: #15395a !important;
+            }
+            @media screen and (min-width: 576px) {
+              .pe-sm-6,
+              .px-sm-6 {
+                padding-right: 3.5rem;
+              }
+            }
+            @media screen and (min-width: 576px) {
+              .ps-sm-6,
+              .px-sm-6 {
+                padding-left: 3.5rem;
+              }
+            }
+            .pe-1-9,
+            .px-1-9 {
+              padding-right: 1.9rem;
+            }
+            .ps-1-9,
+            .px-1-9 {
+              padding-left: 1.9rem;
+            }
+            .pb-1-9,
+            .py-1-9 {
+              padding-bottom: 1.9rem;
+            }
+            .pt-1-9,
+            .py-1-9 {
+              padding-top: 1.9rem;
+            }
+            .mb-1-9,
+            .my-1-9 {
+              margin-bottom: 1.9rem;
+            }
+            @media (min-width: 992px) {
+              .d-lg-inline-block {
+                display: inline-block !important;
+              }
+            }
+            .rounded {
+              border-radius: 0.25rem !important;
+            }
+            .inf-content {
+              margin-top: -2.9rem;
+              margin-bottom: 1.9rem;
+              border: 1px solid #dddddd;
+              -webkit-border-radius: 10px;
+              -moz-border-radius: 10px;
+              border-radius: 10px;
+              box-shadow: 7px 7px 7px rgba(0, 0, 0, 0.3);
+            }
+            .section {
+              display: none;
+            }
+            /* Styles pour le bouton jaune */
+            .btn-yellow {
+              background-color: yellow;
+              color: black; /* Assurez-vous que le texte est lisible */
+            
+            }
+            .feedback {
+              display: flex;
+              align-items: center;
+              margin: 20px 0;
+              font-size: 18px;
+          }      .feedback1 {
+               display: none;
+              align-items: center;
+              font-size: 18px;
+          }
+          .feedback svg {
+              width: 24px;
+              height: 24px;
+              margin-right: 10px;
+          }.feedback1 svg {
+              width: 24px;
+              height: 24px;
+              margin-right: 10px;
+          }
+          .positive-feedback {
+              color: green;
+          }
+          .negative-feedback {
+              color: red;
+          }
+       
+          .button-group button {
+            margin-left:80px;
+            margin-right: 10px;
+            font-size: 26px;
+            transition: box-shadow 0.3s; /* Transition pour l'ombre */
+        }
+
+        .button-group .accepted {
+            box-shadow: 0px 8px 8px 0px rgba(0,0,0,0.75); /* Ombre pour le bouton "Accepté" sélectionné */
+            font-size: 30px;
+        }
+          </style>
+          <script>
+            // S'assurer que le DOM est entièrement chargé avant d'attacher des événements
+            document.addEventListener("DOMContentLoaded", function () {
+              // Attacher un écouteur d'événements au bouton
+              document
+                .getElementById("showButton")
+                .addEventListener("click", function () {
+                  // Sélectionner toutes les sections avec la classe 'section'
+                  var sections = document.querySelectorAll(".section");
+
+                  // Parcourir chaque section et la rendre visible
+                  sections.forEach(function (feedback1 ) {
+                    feedback1 .style.display = "flex";});
+                  sections.forEach(function (section) {
+                    section.style.display = "block";
+                    var button = document.getElementById("showButton");
+                    button.classList.remove("btn-success"); // Supprimer la classe btn-success
+                    button.classList.add("btn-yellow"); // Ajouter la classe btn-yellow
+                  });
+                });
+            });
+          </script>
+       
+
+          <script>
+          $(document).ready(function() {
+              $('#showButton').click(function() {
+                  $.ajax({
+                      url: '{% url "get_data" Dm.id %}',
+                      success: function(data) {
+                          $('#ajax-response').text(data.message);
+                      }
+                  });
+              });
+          });
+          </script>
+         
+        
+
+          <!--class="row"  -->
+          <section class="bg-light">
+            <div class="container">
+              <div>
+                <div class="panel-body inf-content">
+                  <div class="card card-style1 border-0">
+                    <div class="card-body p-1-9 p-sm-2-3 p-md-6 p-lg-7">
+                      <div class="row align-items-center">
+                        <div class="col-lg-6 mb-4 mb-lg-0">
+                          <img
+                            src="https://bootdey.com/img/Content/avatar/avatar7.png"
+                            alt="..."
+                          />
+                        </div>
+                        <div class="col-lg-6 px-xl-10">
+                          <div
+                            class="bg-secondary d-lg-inline-block py-1-9 px-1-9 px-sm-6 mb-1-9 rounded"
+                          >
+                            <h3 class="h2 text-white mb-0">
+                              {{Dm.nom_prenom}}
+                            </h3>
+                            <span class="text-primary">{{Dm.profession}}</span>
+                          </div>
+                          <ul class="list-unstyled mb-1-9">
+                            <li class="mb-2 mb-xl-3 display-28">
+                              <span
+                                class="display-26 text-secondary me-2 font-weight-600"
+                                >Situation Matrimoniale:</span
+                              >
+                              {{Dm.situation_matrimoniale}}
+                            </li>
+                            <li class="mb-2 mb-xl-3 display-28">
+                              <span
+                                class="display-26 text-secondary me-2 font-weight-600"
+                                >Age:</span
+                              >
+                              {{Dm.age}} Ans
+                            </li>
+                            <li class="mb-2 mb-xl-3 display-28">
+                              <span
+                                class="display-26 text-secondary me-2 font-weight-600"
+                                >Secteur d'activité:</span
+                              >
+                              {{Dm.secteur_activite}}
+                            </li>
+                            <li class="mb-2 mb-xl-3 display-28">
+                              <span
+                                class="display-26 text-secondary me-2 font-weight-600"
+                                >Sous Secteur:</span
+                              >
+                              {{Dm.sous_secteur_activite}}
+                            </li>
+                            <li class="display-28">
+                              <span
+                                class="display-26 text-secondary me-2 font-weight-600"
+                                >Sexe:
+                              </span>
+                              {{Dm.sexe}}
+                            </li>
+                          </ul>
+                         
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-12 mb-4 mb-sm-5">
+                  <div>
+                    <span class="section-title text-primary mb-3 mb-sm-4"
+                      >But de la demande</span
+                    >
+                    <p>
+                   {{Dm.but_demande}}
+                    </p>
+                
+                  </div>
+                </div>
+                <div class="col-lg-12 mb-4 mb-sm-5">
+                  <div>
+                    <span class="section-title text-primary mb-3 mb-sm-4"
+                      >Inforation Credit</span
+                    >
+                    <link
+                      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"
+                      rel="stylesheet"
+                    />
+                    <div class="container">
+                      <div class="row flex-lg-nowrap">
+                        <div class="col">
+                          <div class="e-tabs mb-3 px-3">
+                            <ul class="nav nav-tabs">
+                              <li class="nav-item">
+                                <a class="nav-link active" href="#">Client</a>
+                              </li>
+                            </ul>
+                          </div>
+
+                          <div class="row flex-lg-nowrap">
+                            <div class="col mb-3">
+                              <div class="e-panel card">
+                                <div class="card-body">
+                                  <div class="card-title">
+                                    <h6 class="mr-2">
+                                      <span>Users</span
+                                      ><small class="px-1"
+                                        >Be a wise leader</small
+                                      >
+                                    </h6>
+                                  </div>
+                                  <div class="e-table">
+                                    <div class="table-responsive table-lg mt-3">
+                                      <table class="table table-bordered">
+                                        <thead>
+                                          <tr>
+                                            <th class="align-top"></th>
+                                            <th class="max-width">
+                                              Informations
+                                            </th>
+                                            <th></th>
+
+                                            <th class="sortable">Avis</th>
+
+                                            <th>Details</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+                                          <tr>
+                                            <td
+                                              class="text-center align-middle"
+                                            >
+                                              <i
+                                                class="fa fa-fw text-secondary cursor-pointer fa-toggle-on"
+                                              ></i>
+                                            </td>
+                                            <td
+                                              class="text-nowrap align-middle"
+                                            >
+                                              Montant Sollicité
+                                            </td>
+                                            <td
+                                              class="text-nowrap align-middle"
+                                            >
+                                              <span
+                                                >{{Dm.montant_solicite}}
+                                                FCFA</span
+                                              >
+                                            </td>
+                                            <td class="align-middle">
+                                              {% if "montant_sollicite" in NN %}
+                                              
+                                              <div class="section feedback1 negative-feedback">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-x-circle-fill" viewBox="0 0 16 16">
+                                                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.646-4.646a.5.5 0 0 0-.708 0L8 6.293 5.354 3.646a.5.5 0 1 0-.708.708L7.293 8 4.646 10.646a.5.5 0 0 0 .708.708L8 9.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0 0-.708z"/>
+                                                </svg>
+                                               <div> 
+                                                {% elif "duree_pret_souhaitee" in OO %}
+                                                <div class="section feedback1 positive-feedback">
+                                                  <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                                                      <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM6.97 10.97a.75.75 0 0 0 1.07 0l3.993-3.992a.75.75 0 1 0-1.06-1.06L7.5 9.44 6.03 7.97a.75.75 0 1 0-1.06 1.06l1.5 1.5z"/>
+                                                  </svg>
+                                                </div>
+                                                {%else%}
+                                                <div class="section feedback1">
+                                                  <!-- SVG intégré directement dans le HTML -->
+                                                    <svg enable-background="new 0 0 512 512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+                                                      <g>
+                                                          <g>
+                                                              <linearGradient gradientUnits="userSpaceOnUse" id="SVGID_1_" x1="0.0000038" x2="512" y1="256" y2="256">
+                                                                  <stop offset="0" style="stop-color:#FFCA05"/>
+                                                                  <stop offset="1" style="stop-color:#FAAC18"/>
+                                                              </linearGradient>
+                                                              <circle cx="256" cy="256" fill="url(#SVGID_1_)" r="256"/>
+                                                              <linearGradient gradientUnits="userSpaceOnUse" id="SVGID_2_" x1="42.6666679" x2="469.3333435" y1="256.0005188" y2="256.0005188">
+                                                                  <stop offset="0" style="stop-color:#FAAC18"/>
+                                                                  <stop offset="1" style="stop-color:#FFCA05"/>
+                                                              </linearGradient>
+                                                              <path d="M256,469.3338623c-117.6314697,0-213.3333282-95.7023926-213.3333282-213.3333435 c0-117.6314545,95.7018585-213.333313,213.3333282-213.333313c117.636261,0,213.3333435,95.7018661,213.3333435,213.333313 C469.3333435,373.6314697,373.636261,469.3338623,256,469.3338623z" fill="url(#SVGID_2_)"/>
+                                                          </g>
+                                                          <rect height="240" opacity="0.3" transform="matrix(6.123234e-17 -1 1 6.123234e-17 -0.0000002 528)" width="40" x="244" y="144"/>
+                                                          <rect fill="#FFFFFF" height="240" transform="matrix(6.123234e-17 -1 1 6.123234e-17 -9.094947e-13 512)" width="40" x="236" y="136"/>
+                                                      </g>
+                                                  </svg>
+                                              </div>
+                                                {% endif %}
+                                            </td>
+                                            <td
+                                              class="text-center align-middle"
+                                            >
+                                              <div class="btn-group align-top">
+                                                <button
+                                                  class="btn btn-sm btn-outline-secondary badge"
+                                                  type="button"
+                                                  data-toggle="modal"
+                                                  data-target="#user-form-modal"
+                                                >
+                                                  Details
+                                                </button>
+                                              </div>
+                                            </td>
+                                          </tr>
+                                          <tr>
+                                            <td
+                                              class="text-center align-middle"
+                                            >
+                                              <i
+                                                class="fa fa-fw text-secondary cursor-pointer fa-toggle-on"
+                                              ></i>
+                                            </td>
+                                            <td
+                                              class="text-nowrap align-middle"
+                                            >
+                                              Duréé Souhaitée
+                                            </td>
+                                            <td
+                                              class="text-nowrap align-middle"
+                                            >
+                                              <span
+                                                >{{Dm.duree_pret_souhaitee}}
+                                                Mois</span
+                                              >
+                                            </td>
+                                            <td class="align-middle">
+                                              {% if "duree_pret_souhaitee" in NN %}
+                                              
+                                              <div class="section feedback1 negative-feedback">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-x-circle-fill" viewBox="0 0 16 16">
+                                                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.646-4.646a.5.5 0 0 0-.708 0L8 6.293 5.354 3.646a.5.5 0 1 0-.708.708L7.293 8 4.646 10.646a.5.5 0 0 0 .708.708L8 9.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0 0-.708z"/>
+                                                </svg>
+                                               <div> 
+                                                {% elif "duree_pret_souhaitee" in OO %}
+                                                <div class="section feedback1 positive-feedback">
+                                                  <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                                                      <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM6.97 10.97a.75.75 0 0 0 1.07 0l3.993-3.992a.75.75 0 1 0-1.06-1.06L7.5 9.44 6.03 7.97a.75.75 0 1 0-1.06 1.06l1.5 1.5z"/>
+                                                  </svg>
+                                                </div>
+                                                {%else%}
+                                                <div class="section feedback1">
+                                                  <!-- SVG intégré directement dans le HTML -->
+                                                    <svg enable-background="new 0 0 512 512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+                                                      <g>
+                                                          <g>
+                                                              <linearGradient gradientUnits="userSpaceOnUse" id="SVGID_1_" x1="0.0000038" x2="512" y1="256" y2="256">
+                                                                  <stop offset="0" style="stop-color:#FFCA05"/>
+                                                                  <stop offset="1" style="stop-color:#FAAC18"/>
+                                                              </linearGradient>
+                                                              <circle cx="256" cy="256" fill="url(#SVGID_1_)" r="256"/>
+                                                              <linearGradient gradientUnits="userSpaceOnUse" id="SVGID_2_" x1="42.6666679" x2="469.3333435" y1="256.0005188" y2="256.0005188">
+                                                                  <stop offset="0" style="stop-color:#FAAC18"/>
+                                                                  <stop offset="1" style="stop-color:#FFCA05"/>
+                                                              </linearGradient>
+                                                              <path d="M256,469.3338623c-117.6314697,0-213.3333282-95.7023926-213.3333282-213.3333435 c0-117.6314545,95.7018585-213.333313,213.3333282-213.333313c117.636261,0,213.3333435,95.7018661,213.3333435,213.333313 C469.3333435,373.6314697,373.636261,469.3338623,256,469.3338623z" fill="url(#SVGID_2_)"/>
+                                                          </g>
+                                                          <rect height="240" opacity="0.3" transform="matrix(6.123234e-17 -1 1 6.123234e-17 -0.0000002 528)" width="40" x="244" y="144"/>
+                                                          <rect fill="#FFFFFF" height="240" transform="matrix(6.123234e-17 -1 1 6.123234e-17 -9.094947e-13 512)" width="40" x="236" y="136"/>
+                                                      </g>
+                                                  </svg>
+                                              </div>
+                                                {% endif %}
+                                            </td>
+                                            <td
+                                              class="text-center align-middle"
+                                            >
+                                              <div class="btn-group align-top">
+                                                <button
+                                                  class="btn btn-sm btn-outline-secondary badge"
+                                                  type="button"
+                                                  data-toggle="modal"
+                                                  data-target="#user-form-modal"
+                                                >
+                                                  Details
+                                                </button>
+                                              </div>
+                                            </td>
+                                          </tr>
+                                          <tr>
+                                            <td
+                                              class="text-center align-middle"
+                                            >
+                                              <i
+                                                class="fa fa-fw text-secondary cursor-pointer fa-toggle-on"
+                                              ></i>
+                                            </td>
+                                            <td
+                                              class="text-nowrap align-middle"
+                                            >
+                                              Taux d'interet
+                                            </td>
+                                            <td
+                                              class="text-nowrap align-middle"
+                                            >
+                                              <span>{{Dm.taux_interet}} %</span>
+                                            </td>
+                                            <td class="align-middle">
+                                              {% if "taux_interet" in NN %}
+                                              
+                                              <div class="section feedback1 negative-feedback">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-x-circle-fill" viewBox="0 0 16 16">
+                                                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.646-4.646a.5.5 0 0 0-.708 0L8 6.293 5.354 3.646a.5.5 0 1 0-.708.708L7.293 8 4.646 10.646a.5.5 0 0 0 .708.708L8 9.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0 0-.708z"/>
+                                                </svg>
+                                               <div> 
+                                                {% elif "taux_interet" in OO  %}
+                                                <div class="section feedback1 positive-feedback">
+                                                  <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                                                      <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM6.97 10.97a.75.75 0 0 0 1.07 0l3.993-3.992a.75.75 0 1 0-1.06-1.06L7.5 9.44 6.03 7.97a.75.75 0 1 0-1.06 1.06l1.5 1.5z"/>
+                                                  </svg>
+                                                </div>
+                                                {%else%}
+                                                <div class="section feedback1">
+                                                  <!-- SVG intégré directement dans le HTML -->
+                                                    <svg enable-background="new 0 0 512 512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+                                                      <g>
+                                                          <g>
+                                                              <linearGradient gradientUnits="userSpaceOnUse" id="SVGID_1_" x1="0.0000038" x2="512" y1="256" y2="256">
+                                                                  <stop offset="0" style="stop-color:#FFCA05"/>
+                                                                  <stop offset="1" style="stop-color:#FAAC18"/>
+                                                              </linearGradient>
+                                                              <circle cx="256" cy="256" fill="url(#SVGID_1_)" r="256"/>
+                                                              <linearGradient gradientUnits="userSpaceOnUse" id="SVGID_2_" x1="42.6666679" x2="469.3333435" y1="256.0005188" y2="256.0005188">
+                                                                  <stop offset="0" style="stop-color:#FAAC18"/>
+                                                                  <stop offset="1" style="stop-color:#FFCA05"/>
+                                                              </linearGradient>
+                                                              <path d="M256,469.3338623c-117.6314697,0-213.3333282-95.7023926-213.3333282-213.3333435 c0-117.6314545,95.7018585-213.333313,213.3333282-213.333313c117.636261,0,213.3333435,95.7018661,213.3333435,213.333313 C469.3333435,373.6314697,373.636261,469.3338623,256,469.3338623z" fill="url(#SVGID_2_)"/>
+                                                          </g>
+                                                          <rect height="240" opacity="0.3" transform="matrix(6.123234e-17 -1 1 6.123234e-17 -0.0000002 528)" width="40" x="244" y="144"/>
+                                                          <rect fill="#FFFFFF" height="240" transform="matrix(6.123234e-17 -1 1 6.123234e-17 -9.094947e-13 512)" width="40" x="236" y="136"/>
+                                                      </g>
+                                                  </svg>
+                                              </div>
+                                                {% endif %}
+                                            </td>
+                                            <td
+                                              class="text-center align-middle"
+                                            >
+                                              <div class="btn-group align-top">
+                                                <button
+                                                  class="btn btn-sm btn-outline-secondary badge"
+                                                  type="button"
+                                                  data-toggle="modal"
+                                                  data-target="#user-form-modal"
+                                                >
+                                                  Details
+                                                </button>
+                                              </div>
+                                            </td>
+                                          </tr>
+
+                                          <tr>
+                                            <td
+                                              class="text-center align-middle"
+                                            >
+                                              <i
+                                                class="fa fa-fw text-secondary cursor-pointer fa-toggle-on"
+                                              ></i>
+                                            </td>
+                                            <td
+                                              class="text-nowrap align-middle"
+                                            >
+                                              Nombre d'echeance
+                                            </td>
+                                            <td
+                                              class="text-nowrap align-middle"
+                                            >
+                                              <span
+                                                >{{Dm.nombre_echeance}}
+                                                echeances</span
+                                              >
+                                            </td>
+                                            <td class="align-middle">
+                                              <div class="section feedback1">
+                                                <!-- SVG intégré directement dans le HTML -->
+                                                  <svg enable-background="new 0 0 512 512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+                                                    <g>
+                                                        <g>
+                                                            <linearGradient gradientUnits="userSpaceOnUse" id="SVGID_1_" x1="0.0000038" x2="512" y1="256" y2="256">
+                                                                <stop offset="0" style="stop-color:#FFCA05"/>
+                                                                <stop offset="1" style="stop-color:#FAAC18"/>
+                                                            </linearGradient>
+                                                            <circle cx="256" cy="256" fill="url(#SVGID_1_)" r="256"/>
+                                                            <linearGradient gradientUnits="userSpaceOnUse" id="SVGID_2_" x1="42.6666679" x2="469.3333435" y1="256.0005188" y2="256.0005188">
+                                                                <stop offset="0" style="stop-color:#FAAC18"/>
+                                                                <stop offset="1" style="stop-color:#FFCA05"/>
+                                                            </linearGradient>
+                                                            <path d="M256,469.3338623c-117.6314697,0-213.3333282-95.7023926-213.3333282-213.3333435 c0-117.6314545,95.7018585-213.333313,213.3333282-213.333313c117.636261,0,213.3333435,95.7018661,213.3333435,213.333313 C469.3333435,373.6314697,373.636261,469.3338623,256,469.3338623z" fill="url(#SVGID_2_)"/>
+                                                        </g>
+                                                        <rect height="240" opacity="0.3" transform="matrix(6.123234e-17 -1 1 6.123234e-17 -0.0000002 528)" width="40" x="244" y="144"/>
+                                                        <rect fill="#FFFFFF" height="240" transform="matrix(6.123234e-17 -1 1 6.123234e-17 -9.094947e-13 512)" width="40" x="236" y="136"/>
+                                                    </g>
+                                                </svg>
+                                            </div>
+                                            </td>
+                                            <td
+                                              class="text-center align-middle"
+                                            >
+                                              <div class="btn-group align-top">
+                                                <button
+                                                  class="btn btn-sm btn-outline-secondary badge"
+                                                  type="button"
+                                                  data-toggle="modal"
+                                                  data-target="#user-form-modal"
+                                                >
+                                                  Details
+                                                </button>
+                                              </div>
+                                            </td>
+                                          </tr>
+                                          <tr>
+                                            <td
+                                              class="text-center align-middle"
+                                            >
+                                              <i
+                                                class="fa fa-fw text-secondary cursor-pointer fa-toggle-off"
+                                              ></i>
+                                            </td>
+                                            <td
+                                              class="text-nowrap align-middle"
+                                            >
+                                              Ancienneté
+                                            </td>
+                                            <td
+                                              class="text-nowrap align-middle"
+                                            >
+                                              <span
+                                                >{{Dm.anciennete_agence}}
+                                                Ans</span
+                                              >
+                                            </td>
+                                            <td class="align-middle">
+                                              <div class="section feedback1">
+                                                <!-- SVG intégré directement dans le HTML -->
+                                                  <svg enable-background="new 0 0 512 512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+                                                    <g>
+                                                        <g>
+                                                            <linearGradient gradientUnits="userSpaceOnUse" id="SVGID_1_" x1="0.0000038" x2="512" y1="256" y2="256">
+                                                                <stop offset="0" style="stop-color:#FFCA05"/>
+                                                                <stop offset="1" style="stop-color:#FAAC18"/>
+                                                            </linearGradient>
+                                                            <circle cx="256" cy="256" fill="url(#SVGID_1_)" r="256"/>
+                                                            <linearGradient gradientUnits="userSpaceOnUse" id="SVGID_2_" x1="42.6666679" x2="469.3333435" y1="256.0005188" y2="256.0005188">
+                                                                <stop offset="0" style="stop-color:#FAAC18"/>
+                                                                <stop offset="1" style="stop-color:#FFCA05"/>
+                                                            </linearGradient>
+                                                            <path d="M256,469.3338623c-117.6314697,0-213.3333282-95.7023926-213.3333282-213.3333435 c0-117.6314545,95.7018585-213.333313,213.3333282-213.333313c117.636261,0,213.3333435,95.7018661,213.3333435,213.333313 C469.3333435,373.6314697,373.636261,469.3338623,256,469.3338623z" fill="url(#SVGID_2_)"/>
+                                                        </g>
+                                                        <rect height="240" opacity="0.3" transform="matrix(6.123234e-17 -1 1 6.123234e-17 -0.0000002 528)" width="40" x="244" y="144"/>
+                                                        <rect fill="#FFFFFF" height="240" transform="matrix(6.123234e-17 -1 1 6.123234e-17 -9.094947e-13 512)" width="40" x="236" y="136"/>
+                                                    </g>
+                                                </svg>
+                                            </div>
+                                            </td>
+                                            <td
+                                              class="text-center align-middle"
+                                            >
+                                              <div class="btn-group align-top">
+                                                <button
+                                                  class="btn btn-sm btn-outline-secondary badge"
+                                                  type="button"
+                                                  data-toggle="modal"
+                                                  data-target="#user-form-modal"
+                                                >
+                                                  Details
+                                                </button>
+                                              </div>
+                                            </td>
+                                          </tr>
+                                          <tr>
+                                            <td
+                                              class="text-center align-middle"
+                                            >
+                                              <i
+                                                class="fa fa-fw text-secondary cursor-pointer fa-toggle-on"
+                                              ></i>
+                                            </td>
+                                            <td
+                                              class="text-nowrap align-middle"
+                                            >
+                                              Nombre de Mois de cotisation
+                                            </td>
+                                            <td
+                                              class="text-nowrap align-middle"
+                                            >
+                                              <span
+                                                >{{Dm.nombre_mois_cotisation }}
+                                                Mois</span
+                                              >
+                                            </td>
+                                            <td class="align-middle">
+                                              {% if "nbr_mois_cotisation" in NN %}
+                                              
+                                              <div class="section feedback1 negative-feedback">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-x-circle-fill" viewBox="0 0 16 16">
+                                                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.646-4.646a.5.5 0 0 0-.708 0L8 6.293 5.354 3.646a.5.5 0 1 0-.708.708L7.293 8 4.646 10.646a.5.5 0 0 0 .708.708L8 9.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0 0-.708z"/>
+                                                </svg>
+                                               <div> 
+                                                {% else %}
+                                                <div class="section feedback1 positive-feedback">
+                                                  <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                                                      <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM6.97 10.97a.75.75 0 0 0 1.07 0l3.993-3.992a.75.75 0 1 0-1.06-1.06L7.5 9.44 6.03 7.97a.75.75 0 1 0-1.06 1.06l1.5 1.5z"/>
+                                                  </svg>
+                                                {% endif %}
+                                            </td>
+                                            <td
+                                              class="text-center align-middle"
+                                            >
+                                              <div class="btn-group align-top">
+                                                <button
+                                                  class="btn btn-sm btn-outline-secondary badge"
+                                                  type="button"
+                                                  data-toggle="modal"
+                                                  data-target="#user-form-modal"
+                                                >
+                                                  Details
+                                                </button>
+                                              </div>
+                                            </td>
+                                          </tr>
+                                          <tr>
+                                            <td
+                                              class="text-center align-middle"
+                                            >
+                                              <i
+                                                class="fa fa-fw text-secondary cursor-pointer fa-toggle-on"
+                                              ></i>
+                                            </td>
+                                            <td
+                                              class="text-nowrap align-middle"
+                                            >
+                                              Nombre de credit Octroyé
+                                            </td>
+                                            <td
+                                              class="text-nowrap align-middle"
+                                            >
+                                              <span
+                                                >{{Dm.nbr_credits_octroyes}}
+                                              </span>
+                                            </td>
+                                            <td class="align-middle">
+                                              {% if "nbr_credits_octroyes" in NN %}
+                                              
+                                              <div class="section feedback1 negative-feedback">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-x-circle-fill" viewBox="0 0 16 16">
+                                                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.646-4.646a.5.5 0 0 0-.708 0L8 6.293 5.354 3.646a.5.5 0 1 0-.708.708L7.293 8 4.646 10.646a.5.5 0 0 0 .708.708L8 9.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0 0-.708z"/>
+                                                </svg>
+                                               <div> 
+                                                {% else %}
+                                                <div class="section feedback1 positive-feedback">
+                                                  <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                                                      <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM6.97 10.97a.75.75 0 0 0 1.07 0l3.993-3.992a.75.75 0 1 0-1.06-1.06L7.5 9.44 6.03 7.97a.75.75 0 1 0-1.06 1.06l1.5 1.5z"/>
+                                                  </svg>
+                                                {% endif %}
+                                                </div>
+                                            </td>
+                                            <td
+                                              class="text-center align-middle"
+                                            >
+                                              <div class="btn-group align-top">
+                                                <button
+                                                  class="btn btn-sm btn-outline-secondary badge"
+                                                  type="button"
+                                                  data-toggle="modal"
+                                                  data-target="#user-form-modal"
+                                                >
+                                                  Details
+                                                </button>
+                                              </div>
+                                            </td>
+                                          </tr>
+                                          <tr>
+                                            <td
+                                              class="text-center align-middle"
+                                            >
+                                              <i
+                                                class="fa fa-fw text-secondary cursor-pointer fa-toggle-on"
+                                              ></i>
+                                            </td>
+                                            <td
+                                              class="text-nowrap align-middle"
+                                            >
+                                              Nombre de credit rembousé
+                                            </td>
+                                            <td
+                                              class="text-nowrap align-middle"
+                                            >
+                                              <span
+                                                >{{Dm.nbr_credits_rembourses}}
+                                              </span>
+                                            </td>
+                                            
+                                            <td class="align-middle">
+                                              {% if "rapport_rembourse" in NN %}
+                                              <div class=" section feedback1 negative-feedback">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-x-circle-fill" viewBox="0 0 16 16">
+                                                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.646-4.646a.5.5 0 0 0-.708 0L8 6.293 5.354 3.646a.5.5 0 1 0-.708.708L7.293 8 4.646 10.646a.5.5 0 0 0 .708.708L8 9.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0 0-.708z"/>
+                                                </svg>
+                                               <div> 
+                                                {% else %}
+                                                <div class="section feedback1 positive-feedback">
+                                                  <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                                                      <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM6.97 10.97a.75.75 0 0 0 1.07 0l3.993-3.992a.75.75 0 1 0-1.06-1.06L7.5 9.44 6.03 7.97a.75.75 0 1 0-1.06 1.06l1.5 1.5z"/>
+                                                  </svg>
+                                                {% endif %}
+                                            </td>
+                                            <td
+                                              class="text-center align-middle"
+                                            >
+                                              <div class="btn-group align-top">
+                                                <button
+                                                  class="btn btn-sm btn-outline-secondary badge"
+                                                  type="button"
+                                                  data-toggle="modal"
+                                                  data-target="#user-form-modal"
+                                                >
+                                                  Details
+                                                </button>
+                                              </div>
+                                            </td>
+                                          </tr>
+                                          <tr>
+                                            <td
+                                              class="text-center align-middle"
+                                            >
+                                              <i
+                                                class="fa fa-fw text-secondary cursor-pointer fa-toggle-off"
+                                              ></i>
+                                            </td>
+                                            <td
+                                              class="text-nowrap align-middle"
+                                            >
+                                              Montant Total Preté
+                                            </td>
+                                            <td
+                                              class="text-nowrap align-middle"
+                                            >
+                                              <span
+                                                >{{Dm.montant_credits_accorde}}
+                                                FCFA</span
+                                              >
+                                            </td>
+                                            <td class="align-middle">
+                                              
+                                              {% if 'rapport_rembour' in NN %}
+                                              <div class=" section feedback1 negative-feedback">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-x-circle-fill" viewBox="0 0 16 16">
+                                                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.646-4.646a.5.5 0 0 0-.708 0L8 6.293 5.354 3.646a.5.5 0 1 0-.708.708L7.293 8 4.646 10.646a.5.5 0 0 0 .708.708L8 9.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0 0-.708z"/>
+                                                </svg>
+                                               <div> 
+                                                {% else %}
+                                                <div class="section feedback1 positive-feedback">
+                                                  <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                                                      <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM6.97 10.97a.75.75 0 0 0 1.07 0l3.993-3.992a.75.75 0 1 0-1.06-1.06L7.5 9.44 6.03 7.97a.75.75 0 1 0-1.06 1.06l1.5 1.5z"/>
+                                                  </svg>
+                                                </div>
+                                              
+                                                {% endif %}
+                                            </td>
+                                            <td
+                                              class="text-center align-middle"
+                                            >
+                                              <div class="btn-group align-top">
+                                                <button
+                                                  class="btn btn-sm btn-outline-secondary badge"
+                                                  type="button"
+                                                  data-toggle="modal"
+                                                  data-target="#user-form-modal"
+                                                >
+                                                  Details
+                                                </button>
+                                              </div>
+                                            </td>
+                                          </tr>
+                                          {% if Dm.nbr_credits_octroyes != 0 %}
+                                          <table class="table table-bordered">
+                                            <thead>
+                                              <tr>
+                                                <th class="align-top"></th>
+                                                <th class="max-width">
+                                                  Valeurs
+                                                </th>
+                                                
+    
+                                                <th class="sortable">Nature</th>
+    
+                                                <th>Avis</th>
+                                              </tr>
+                                            </thead>
+                                          <tr>
+                                            
+                                            <th>Ratio Rembouse</th>
+                                            <th>{% if Dm.nbr_credits_octroyes != 0 %}{{rapport_rebourse|floatformat:"2"}}{% endif %}</th>
+                                            <th>{% if Dm.nbr_credits_octroyes != 0 %}<p  class='section'  style="color:{% if  rapport_rebourse > 0.75 %}green{% elif rapport_rebourse < 0.55 %}red{% else %}  #FFD700{% endif %};">{% if  rapport_rebourse > 0.75 %}Bon{% elif rapport_rebourse < 0.55 %}Mauvais{% else %} Passable{% endif %}</p>{% endif %}</th>
+                                            <td class="align-middle">
+                                              {% if Dm.nbr_credits_octroyes != 0 %}
+                                              {% if "rapport_rembourse" in NN %}
+                                              <div class=" section feedback1 negative-feedback">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-x-circle-fill" viewBox="0 0 16 16">
+                                                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.646-4.646a.5.5 0 0 0-.708 0L8 6.293 5.354 3.646a.5.5 0 1 0-.708.708L7.293 8 4.646 10.646a.5.5 0 0 0 .708.708L8 9.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0 0-.708z"/>
+                                                </svg>
+                                               <div> 
+                                                {% else %}
+                                                <div class="section feedback1 positive-feedback">
+                                                  <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                                                      <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM6.97 10.97a.75.75 0 0 0 1.07 0l3.993-3.992a.75.75 0 1 0-1.06-1.06L7.5 9.44 6.03 7.97a.75.75 0 1 0-1.06 1.06l1.5 1.5z"/>
+                                                  </svg>
+                                                {% endif %}
+                                                {% endif %}
+                                            </td>
+                                            
+                                           
+                                        </tr>
+                                        <tr>
+                                            
+                                            <th>Difference Moyenne</th>
+                                            <th>{% if Dm.nbr_credits_octroyes != 0 %}{{rap_dif|floatformat:"2"}}{% endif %}</th>
+                                            <th>{% if Dm.nbr_credits_octroyes != 0 %}<p  class='section'  style="color:{% if 'rapport_rembour' in NN %}red{% else %}green {% endif %};">{% if  'rapport_rembour' in NN %}Mauvais{% else %} Bon {% endif %}</p>{% endif %}</th>
+                                            
+                                            <th class="align-middle">
+                                              {% if Dm.nbr_credits_octroyes != 0 %}
+                                              {% if "rapport_rembour" in NN %}
+                                              <div class=" section feedback1 negative-feedback">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-x-circle-fill" viewBox="0 0 16 16">
+                                                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.646-4.646a.5.5 0 0 0-.708 0L8 6.293 5.354 3.646a.5.5 0 1 0-.708.708L7.293 8 4.646 10.646a.5.5 0 0 0 .708.708L8 9.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0 0-.708z"/>
+                                                </svg>
+                                               <div> 
+                                                {% else %}
+                                                <div class="section feedback1 positive-feedback">
+                                                  <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                                                      <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM6.97 10.97a.75.75 0 0 0 1.07 0l3.993-3.992a.75.75 0 1 0-1.06-1.06L7.5 9.44 6.03 7.97a.75.75 0 1 0-1.06 1.06l1.5 1.5z"/>
+                                                  </svg>
+                                                {% endif %}
+                                                {% endif %}
+                                            </th>
+                                         
+                                           
+                                        </tr>
+                                        
+                                      
+                                        </tbody>
+                                      </table>
+                                      {% endif %}
+                                    </div>
+                                  </div>
+                                      <div class=" section e-table">
+                                        <div class="table-responsive table-lg mt-3">
+                                          <table class="table table-bordered">
+                                      <table class="table table-bordered">
+                                            
+                                          <tr>
+                                            
+                                            <th>Montant Demandé</th>
+                                            <th>{{Dm.montant_solicite}} FCFA</th>
+                                            <th>Montant Conseillé</th>
+                                            <th>
+                                              {{Dm.montant_solicite}} FCFA
+                                            </th>
+                                            
+                                           
+                                        </tr>
+                                         <tr>
+                                            
+                                            <th></th>
+                                            <th></th>
+                                            <th>Score</th>
+                                            <th >
+                                             <p class="section"> {{note}} /100 </p>
+                                            </th>
+                                            
+                                           
+                                        </tr>
+
+                                        </tbody>
+                                      </table>
+                                      
+                                      <ul  class="list-unstyled mb-1-9">
+                                    
+                                        <h2 style ="margin-left :80 px;" >Recommandation :</h2>
+                                        <h5 style="color: {% if note > 75 %}green{% elif note < 25 %}red{% else %} yellow{% endif %}" class="mb-2 mb-xl-3 display-28">
+                                          
+                                      </h5>
+                                        <div class="button-group" >
+                                          <button type="button" class="btn btn-success {% if note > 75 %} accepted {% endif %}">Accepté</button>
+                                          <button type="button" class="btn btn-danger {% if note < 25 %} accepted {% endif %}">Rejeté</button>
+                                          <button type="button" class="btn btn-warning {% if note > 25 and  note < 75 %} accepted {% endif %}">À étudier</button>
+                                        </div>
+                                        
+                            
+                                      </ul>
+                                      
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="col-12 col-lg-3 mb-3">
+                              <div class="card">
+                                <div class="card-body">
+                                  <div class="text-center px-xl-3">
+                
+                                  
+                                    
+                                      <button
+                                       
+                                        id="showButton"
+                                        style="margin-top: 10px"
+                                        class="btn btn-success btn-block"
+                                        type="button"
+                                        data-toggle="modal"
+                                        data-target="#user-form-modal"
+                                      >
+                                        Analyser
+                                      </button>
+                                      
+                                    
+                                  </div>
+                                 
+                                  <div class="e-navlist e-navlist--active-bold">
+                                    {% comment %}
+                                    <ul class="nav">
+                                      <li class="nav-item active">
+                                        <a href="" class="nav-link"
+                                          ><span>All</span>&nbsp;<small
+                                            >/&nbsp;32</small
+                                          ></a
+                                        >
+                                      </li>
+                                      <li class="nav-item">
+                                        <a href="" class="nav-link"
+                                          ><span>Active</span>&nbsp;<small
+                                            >/&nbsp;16</small
+                                          ></a
+                                        >
+                                      </li>
+                                      <li class="section nav-item">
+                                        <a class="nav-link"
+                                          ><span>Score </span>&nbsp;<small
+                                            >/&nbsp;{{note}}</small
+                                          ></a
+                                        >
+                                      </li>
+                                    </ul>
+                                    {% endcomment %}
+                                    <div class="section">
+                                      <hr class="my-3" />
+                                      {% include "./Note.html"%}
+                                    </div>
+                                  </div>
+                                  <hr class="my-3" />
+                                  <div>
+                                    <div class="form-group">
+                                      <label>Demande - De:</label>
+                                      <div>
+                                        <input
+                                          id="dates-range"
+                                          class="form-control flatpickr-input"
+                                          placeholder="{{Dm.date_creation}}"
+                                          type="text"
+                                          readonly="readonly"
+                                        />
+                                      </div>
+                                    </div>
+                                    <div class="section form-group">
+                                      <label>Analysé le:</label>
+                                      <div>
+                                        <input
+                                          class="form-control w-100"
+                                          type="text"
+                                          placeholder="{{Dm.date_analyse}}"
+                                          value=""
+                                        />
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <hr class="my-3" />
+                                  <div class="">
+                                    <label>Status:</label>
+                                    <div class="px-2">
+                                      <div class="custom-control custom-radio">
+                                        {% if Dm.statut_traite == 'accept' %}
+                                        <input
+                                          type="radio"
+                                          class="custom-control-input"
+                                          name="user-status"
+                                          id="users-status-disabled"
+                                          checked
+                                          
+                                        />{% endif %}
+                                        <label
+                                          class="custom-control-label"
+                                          for="users-status-disabled"
+                                          >Acepté</label
+                                        >
+                                      </div>
+                                    </div>
+                                    <div class="px-2">
+                                      <div class="custom-control custom-radio">
+                                        {% if Dm.statut_traite == 'rejet' %}
+                                        <input
+                                          type="radio"
+                                          class="custom-control-input"
+                                          name="user-status"
+                                          id="users-status-active"
+                                             checked
+                                          
+                                        />{% endif %}
+                                        <label
+                                          class="custom-control-label"
+                                          for="users-status-active"
+                                          >Rejeté</label
+                                        >
+                                      </div>
+                                    </div>
+                                    <div class="px-2">
+                                      <div class="custom-control custom-radio">
+                                        {% if Dm.statut_traite == 'en attente' %}
+                                          
+                                        <input
+                                          type="radio"
+                                          class="custom-control-input"
+                                          name="user-status"
+                                          id="users-status-any"
+                                          checked
+                                        />{% endif %}
+                                        
+                                        <label
+                                          class="custom-control-label"
+                                          for="users-status-any"
+                                          >En Attente</label
+                                        >
+                                      </div>
+                                      <hr class="my-3" />
+                                      <div class=" section text-center px-xl-3">
+                                        <a href="{%  url 'dm_pdf' Dm.id %}">
+                                          <button
+                                            class="btn btn-success btn-block"
+                                            type="button"
+                                            style="margin-top: 10px ;margin-bottom :20px"
+                                            data-toggle="modal"
+                                            data-target="#user-form-modal"
+                                          >
+                                            Download PDF
+                                          </button>
+                                        </a>
+                                        
+                                       
+                                        
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="section col-lg-12">
+                  <div class="row">
+            <div class="panel-body inf-content">
+              <div class="card card-style1 border-0">
+                <div class="card-body p-1-9 p-sm-2-3 p-md-6 p-lg-7">
+
+                    <div class="col-lg-12 mb-4 mb-sm-5">
+                      <div class="mb-4 mb-sm-5">
+                        <span class="section-title text-primary mb-3 mb-sm-4"
+                          >Points Positifs</span
+                        >
+                        {% for recomm in recom_O %}
+                        <div class="feedback positive-feedback">
+                          <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                              <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM6.97 10.97a.75.75 0 0 0 1.07 0l3.993-3.992a.75.75 0 1 0-1.06-1.06L7.5 9.44 6.03 7.97a.75.75 0 1 0-1.06 1.06l1.5 1.5z"/>
+                          </svg>
+                       {{recomm}}
+                      </div>
+                      
+                        {% endfor %}
+                      </div>
+
+                     
+                            
+                      <div class="mb-4 mb-sm-5">
+                        <span class="section-title text-primary mb-3 mb-sm-4"
+                          >Points Negatifs</span
+                        >
+                        {% for recomy in recom_N %}
+                        <div class="feedback negative-feedback">
+                          <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-x-circle-fill" viewBox="0 0 16 16">
+                              <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.646-4.646a.5.5 0 0 0-.708 0L8 6.293 5.354 3.646a.5.5 0 1 0-.708.708L7.293 8 4.646 10.646a.5.5 0 0 0 .708.708L8 9.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0 0-.708z"/>
+                          </svg>
+                          {{recomy}}
+                      </div>
+                      
+                      {% endfor %}
+                    </div>
+                      <div>
+                        <span class="section-title text-primary mb-3 mb-sm-4"
+                          >Analyse</span
+                        >
+                        <p>
+                          {{analyse}}
+                        </p>
+                        <p class="mb-1-9">
+                          ......
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </body>
+  
+</html>

@@ -1,0 +1,78 @@
+{{demandes}}
+<style>
+ 
+  .score-header {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 10px;
+      margin-left: 40px;
+  }
+  .score-value {
+      font-size: 24px;
+      color: #444;
+      margin-left: 45px;
+  }
+  .score-description {
+      margin-top: 10px;
+      font-size: 14px;
+      color: #666;
+  }
+  .gauge {
+      width: 200px;
+      height: 100px;
+      position: relative;
+      margin: 20px auto;
+  }
+  .gauge .background, .gauge .fill {
+      width: 100%;
+      height: 100%;
+      border-radius: 100px 100px 0 0;
+      background: conic-gradient( yellow,green,red, orange);
+      position: absolute;
+      top: 0;
+      left: 0;
+  }
+  .gauge .fill {
+      clip-path: inset(0 50% 0 0);
+  }
+  .gauge .cover {
+      width: 180px;
+      height: 90px;
+      background: white;
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      border-radius: 90px 90px 0 0;
+      z-index: 1;
+  }
+  .gauge .needle {
+      width: 2px;
+      height: 90px;
+      background: black;
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform-origin: bottom;
+      transform: rotate({{deg}}deg); /* Adjust this to the desired angle */
+      z-index: 2;
+  }
+</style>
+</head>
+<body>
+<div class="score-section">
+  <div class="score-header">
+     Score Client
+  </div>
+  <div class="score-value" style="color:{% if note > 75 %}green{% elif note < 25 %}red{% else %}  #FFD700{% endif %};">{{Nature}}</div>
+</div>
+<div class="score-value"  style="color:{% if note > 75 %}green{% elif note < 25 %}red{% else %}  #FFD700{% endif %};"> {{note}}/100</div>
+  <div class="gauge">
+      <div class="background"></div>
+      <div class="fill"></div>
+      <div class="cover"></div>
+      <div class="needle"></div>
+  </div>
+  <div class="score-description">
+      The score above is specific to your channel. <a href="#" style="color: #0073e6;">Learn more...</a>
+  </div>
+</div>

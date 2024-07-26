@@ -1,0 +1,545 @@
+{% load static%} {{demandes}}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+
+    <title>SB Admin 2 - Tables</title>
+
+    <!-- Custom fonts for this template -->
+
+    <link
+      href="vendor/fontawesome-free/css/all.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link
+      href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+      rel="stylesheet"
+    />
+
+    <!-- Custom styles for this template -->
+    <link href="css/sb-admin-2.min.css" rel="stylesheet" />
+    <link href="{% static 'css/index.css'%}" rel="stylesheet" />
+    <script src="{% static 'js/index.js'%}"></script>
+    <script src="{% static 'js/jquery-3.7.1.min.js' %}"></script>
+    <!-- Custom styles for this page -->
+    <link
+      href="vendor/datatables/dataTables.bootstrap4.min.css"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body id="page-top">
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+      
+
+      <!-- Content Wrapper -->
+      <div id="content-wrapper" class="d-flex flex-column">
+        <!-- Main Content -->
+        <div id="content">
+
+          <style>
+            body {
+                margin-top: 20px;
+                font-family: Arial, sans-serif;
+            }
+            .card-style1 {
+                box-shadow: 0px 0px 10px 0px rgb(89 75 128 / 9%);
+            }
+            .border-0 {
+                border: 0 !important;
+            }
+            .card {
+                position: relative;
+                display: flex;
+                flex-direction: column;
+                min-width: 0;
+                word-wrap: break-word;
+                background-color: #fff;
+                background-clip: border-box;
+                border: 1px solid rgba(0, 0, 0, 0.125);
+                border-radius: 0.25rem;
+            }
+            section {
+                padding: 120px 0;
+                overflow: hidden;
+                background: #fff;
+            }
+            .mb-2-3,
+            .my-2-3 {
+                margin-bottom: 2.3rem;
+            }
+            .section-title {
+                font-weight: 600;
+                letter-spacing: 2px;
+                text-transform: uppercase;
+                margin-bottom: 10px;
+                position: relative;
+                display: inline-block;
+            }
+            .text-primary {
+                color: #ceaa4d !important;
+            }
+            .text-secondary {
+                color: #15395a !important;
+            }
+            .font-weight-600 {
+                font-weight: 600;
+            }
+            .display-26 {
+                font-size: 1.3rem;
+            }
+            @media screen and (min-width: 992px) {
+                .p-lg-7 {
+                    padding: 4rem;
+                }
+            }
+            @media screen and (min-width: 768px) {
+                .p-md-6 {
+                    padding: 3.5rem;
+                }
+            }
+            @media screen and (min-width: 576px) {
+                .p-sm-2-3 {
+                    padding: 2.3rem;
+                }
+            }
+            .p-1-9 {
+                padding: 1.9rem;
+            }
+            .bg-secondary {
+                background: #15395a !important;
+            }
+            @media screen and (min-width: 576px) {
+                .pe-sm-6,
+                .px-sm-6 {
+                    padding-right: 3.5rem;
+                }
+            }
+            @media screen and (min-width: 576px) {
+                .ps-sm-6,
+                .px-sm-6 {
+                    padding-left: 3.5rem;
+                }
+            }
+            .pe-1-9,
+            .px-1-9 {
+                padding-right: 1.9rem;
+            }
+            .ps-1-9,
+            .px-1-9 {
+                padding-left: 1.9rem;
+            }
+            .pb-1-9,
+            .py-1-9 {
+                padding-bottom: 1.9rem;
+            }
+            .pt-1-9,
+            .py-1-9 {
+                padding-top: 1.9rem;
+            }
+            .mb-1-9,
+            .my-1-9 {
+                margin-bottom: 1.9rem;
+            }
+            @media (min-width: 992px) {
+                .d-lg-inline-block {
+                    display: inline-block !important;
+                }
+            }
+            .rounded {
+                border-radius: 0.25rem !important;
+            }
+            .inf-content {
+                margin-top: -2.9rem;
+                margin-bottom: 1.9rem;
+                border: 1px solid #dddddd;
+                -webkit-border-radius: 10px;
+                -moz-border-radius: 10px;
+                border-radius: 10px;
+                box-shadow: 7px 7px 7px rgba(0, 0, 0, 0.3);
+            }
+            .section {
+                display: block;
+            }
+            .btn-yellow {
+                background-color: yellow;
+                color: black; /* Assurez-vous que le texte est lisible */
+            }
+            .feedback, .feedback1 {
+                display: flex;
+                align-items: center;
+                font-size: 18px;
+            }
+            .feedback svg, .feedback1 svg {
+                width: 24px;
+                height: 24px;
+                margin-right: 10px;
+            }
+            .positive-feedback {
+                color: green;
+            }
+            .negative-feedback {
+                color: red;
+            }
+            .button-group button {
+                margin-left: 80px;
+                margin-right: 10px;
+                font-size: 26px;
+                transition: box-shadow 0.3s; /* Transition pour l'ombre */
+            }
+            .button-group .accepted {
+                box-shadow: 0px 8px 8px 0px rgba(0, 0, 0, 0.75); /* Ombre pour le bouton "Accepté" sélectionné */
+                font-size: 30px;
+            }
+        </style>
+        
+
+          <!--class="row"  -->
+          <section class="bg-light">
+            <div class="container">
+              <div>
+                <div class="panel-body inf-content">
+                  <div class="card card-style1 border-0">
+                    <div class="card-body p-1-9 p-sm-2-3 p-md-6 p-lg-7">
+                      <div class="row align-items-center">
+                        <div class="col-lg-6 mb-4 mb-lg-0">
+                          <img
+                            src="https://bootdey.com/img/Content/avatar/avatar7.png"
+                            alt="..."
+                          />
+                        </div>
+                        <div class="col-lg-6 px-xl-10">
+                          <div
+                            class=" col-8 bg-secondary d-lg-inline-block py-1-9 px-1-9 px-sm-6 mb-1-9 rounded"
+                          >
+                            <h3 class="h2 text-white mb-0">
+                              {{Dm.nom_prenom}}
+                            </h3>
+                            <span class="text-primary">{{Dm.profession}}</span>
+                          </div>
+                          <ul class="list-unstyled mb-1-9">
+                            <li class="mb-2 mb-xl-3 display-28">
+                              <span
+                                class="display-26 text-secondary me-2 font-weight-600"
+                                >Situation Matrimoniale:</span
+                              >
+                              {{Dm.situation_matrimoniale}}
+                            </li>
+                            <li class="mb-2 mb-xl-3 display-28">
+                              <span
+                                class="display-26 text-secondary me-2 font-weight-600"
+                                >Age:</span
+                              >
+                              {{Dm.age}} Ans
+                            </li>
+                            <li class="mb-2 mb-xl-3 display-28">
+                              <span
+                                class="display-26 text-secondary me-2 font-weight-600"
+                                >Secteur d'activité:</span
+                              >
+                              {{Dm.secteur_activite}}
+                            </li>
+                            <li class="mb-2 mb-xl-3 display-28">
+                              <span
+                                class="display-26 text-secondary me-2 font-weight-600"
+                                >Sous Secteur:</span
+                              >
+                              {{Dm.sous_secteur_activite}}
+                            </li>
+                            <li class="display-28">
+                              <span
+                                class="display-26 text-secondary me-2 font-weight-600"
+                                >Sexe:
+                              </span>
+                              {{Dm.sexe}}
+                            </li>
+                          </ul>
+                         
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-12 mb-4 mb-sm-5">
+                  <div>
+                    <span class="section-title text-primary mb-3 mb-sm-4"
+                      >But de la demande</span
+                    >
+                    <p>
+                   {{Dm.but_demande}}
+                    </p>
+                
+                  </div>
+                </div>
+                <div class="col-lg-12 mb-4 mb-sm-5">
+                  <div>
+                      <span class="section-title text-primary mb-3 mb-sm-4">Information Credit</span>
+                      <div class="container">
+                          <div class="row flex-lg-nowrap">
+                              <div class="col">
+                                  <div class="e-tabs mb-3 px-3">
+                                      <ul class="nav nav-tabs">
+                                          <li class="nav-item">
+                                              <a class="nav-link active" href="#">Client</a>
+                                          </li>
+                                      </ul>
+                                  </div>
+              
+                                  <div class="e-panel card">
+                                      <div class="card-body">
+                                          <div class="card-title">
+                                              <h6 class="mr-2">Users <small class="px-1">Be a wise leader</small></h6>
+                                          </div>
+                                          <div class="e-table col-11">
+                                              <div class="table-responsive table-lg mt-3">
+                                                  <table class="table table-bordered">
+                                                      <thead>
+                                                          <tr>
+                                                            <th></th>
+                                                              <th class="max-width">Informations</th>
+                                                              <th></th>
+                                                              <th class="sortable">Avis</th>
+                                                          </tr>
+                                                      </thead>
+                                                      <tbody>
+                                                          <tr>
+                                                              <td></td>
+                                                              <td class="text-nowrap align-middle">Montant Sollicité</td>
+                                                              <td class="text-nowrap align-middle">
+                                                                  <span>{{ Dm.montant_solicite }} FCFA</span>
+                                                              </td>
+                                                              <td class="align-middle">
+                                                                  {% if "montant_sollicite" in NN %}
+                                                                      <div class="feedback negative-feedback">
+                                                                          <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-x-circle-fill" viewBox="0 0 16 16">
+                                                                              <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.646-4.646a.5.5 0 0 0-.708 0L8 6.293 5.354 3.646a.5.5 0 1 0-.708.708L7.293 8 4.646 10.646a.5.5 0 0 0 .708.708L8 9.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0 0-.708z"/>
+                                                                          </svg>
+                                                                      </div>
+                                                                  {% else %}
+                                                                      <div class="feedback positive-feedback">
+                                                                          <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                                                                              <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM6.97 10.97a.75.75 0 0 0 1.07 0l3.993-3.992a.75.75 0 1 0-1.06-1.06L7.5 9.44 6.03 7.97a.75.75 0 1 0-1.06 1.06l1.5 1.5z"/>
+                                                                          </svg>
+                                                                      </div>
+                                                                  {% endif %}
+                                                              </td>
+                                                          </tr>
+              
+                                                          <tr>
+                                                            <td></td>
+                                                              <td class="text-nowrap align-middle">Durée Souhaitée</td>
+                                                              <td class="text-nowrap align-middle">
+                                                                  <span>{{ Dm.duree_pret_souhaitee }} Mois</span>
+                                                              </td>
+                                                              <td class="align-middle">
+                                                                  {% if "duree_pret_souhaitee" in NN %}
+                                                                      <div class="feedback negative-feedback">
+                                                                          <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-x-circle-fill" viewBox="0 0 16 16">
+                                                                              <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.646-4.646a.5.5 0 0 0-.708 0L8 6.293 5.354 3.646a.5.5 0 1 0-.708.708L7.293 8 4.646 10.646a.5.5 0 0 0 .708.708L8 9.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0 0-.708z"/>
+                                                                          </svg>
+                                                                      </div>
+                                                                  {% else %}
+                                                                      <div class=" feedback positive-feedback">
+                                                                          <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                                                                              <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM6.97 10.97a.75.75 0 0 0 1.07 0l3.993-3.992a.75.75 0 1 0-1.06-1.06L7.5 9.44 6.03 7.97a.75.75 0 1 0-1.06 1.06l1.5 1.5z"/>
+                                                                          </svg>
+                                                                      </div>
+                                                                  {% endif %}
+                                                              </td>
+                                                          </tr>
+
+              
+                                                          <tr>
+                                                            <td></td>
+                                                              <td class="text-nowrap align-middle">Taux d'Interêt</td>
+                                                              <td class="text-nowrap align-middle">
+                                                                  <span>{{ Dm.taux_interet }} %</span>
+                                                              </td>
+                                                              <td class="align-middle" >
+                                                                {% if "taux_interet" in NN %}
+                                                                <div class=" feedback negative-feedback" >
+                                                                    <svg style="color: red;" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-x-circle-fill" viewBox="0 0 16 16">
+                                                                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.646-4.646a.5.5 0 0 0-.708 0L8 6.293 5.354 3.646a.5.5 0 1 0-.708.708L7.293 8 4.646 10.646a.5.5 0 0 0 .708.708L8 9.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0 0-.708z"/>
+                                                                    </svg>
+                                                                </div>
+                                                            {% else %}
+                                                                <div class=" feedback positive-feedback">
+                                                                    <svg   style="color: green;" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                                                                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM6.97 10.97a.75.75 0 0 0 1.07 0l3.993-3.992a.75.75 0 1 0-1.06-1.06L7.5 9.44 6.03 7.97a.75.75 0 1 0-1.06 1.06l1.5 1.5z"/>
+                                                                    </svg>
+                                                                </div>
+                                                            {% endif %}
+                                                            
+                                                              </td>
+                                                          </tr>
+                                                          <tr>
+                                                            <td></td>
+                                                            <td
+                                                              class="text-nowrap align-middle"
+                                                            >
+                                                              Nombre d'echeance
+                                                            </td>
+                                                            <td
+                                                              class="text-nowrap align-middle"
+                                                            >
+                                                              <span
+                                                                >{{Dm.nombre_echeance}}
+                                                                echeances</span
+                                                              >
+                                                            </td>
+                                                            <td class="align-middle">
+                                                              <div class="feedback">
+                                                                <!-- SVG intégré directement dans le HTML -->
+                                                                  <svg enable-background="new 0 0 512 512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+                                                                    <g>
+                                                                        <g>
+                                                                            <linearGradient gradientUnits="userSpaceOnUse" id="SVGID_1_" x1="0.0000038" x2="512" y1="256" y2="256">
+                                                                                <stop offset="0" style="stop-color:#FFCA05"/>
+                                                                                <stop offset="1" style="stop-color:#FAAC18"/>
+                                                                            </linearGradient>
+                                                                            <circle cx="256" cy="256" fill="url(#SVGID_1_)" r="256"/>
+                                                                            <linearGradient gradientUnits="userSpaceOnUse" id="SVGID_2_" x1="42.6666679" x2="469.3333435" y1="256.0005188" y2="256.0005188">
+                                                                                <stop offset="0" style="stop-color:#FAAC18"/>
+                                                                                <stop offset="1" style="stop-color:#FFCA05"/>
+                                                                            </linearGradient>
+                                                                            <path d="M256,469.3338623c-117.6314697,0-213.3333282-95.7023926-213.3333282-213.3333435 c0-117.6314545,95.7018585-213.333313,213.3333282-213.333313c117.636261,0,213.3333435,95.7018661,213.3333435,213.333313 C469.3333435,373.6314697,373.636261,469.3338623,256,469.3338623z" fill="url(#SVGID_2_)"/>
+                                                                        </g>
+                                                                        <rect height="240" opacity="0.3" transform="matrix(6.123234e-17 -1 1 6.123234e-17 -0.0000002 528)" width="40" x="244" y="144"/>
+                                                                        <rect fill="#FFFFFF" height="240" transform="matrix(6.123234e-17 -1 1 6.123234e-17 -9.094947e-13 512)" width="40" x="236" y="136"/>
+                                                                    </g>
+                                                                </svg>
+                                                            </div>
+                                                            </td>
+                                                      
+                                                          </tr>
+                                                      </tbody>
+                                                  </table>
+                                              </div>
+                                          </div>
+              
+                                          <div class=" e-table">
+                                              <div class="col-11 table-responsive table-lg mt-3">
+                                                  <table class=" table table-bordered">
+                                                      <thead>
+                                                          <tr>
+                                                              <th>Montant Demandé</th>
+                                                              <th>{{ Dm.montant_solicite }} FCFA</th>
+                                                              <th>Montant Conseillé</th>
+                                                              <th>{{ Dm.montant_solicite }} FCFA</th>
+                                                          </tr>
+                                                          <tr>
+                                                              <th></th>
+                                                              <th></th>
+                                                              <th>Score</th>
+                                                              <th><p class="section">{{ note }} /100</p></th>
+                                                          </tr>
+                                                      </thead>
+                                                  </table>
+              
+                                                  <ul class="list-unstyled mb-1-9">
+                                                    <li>
+                                                        <h2 style="margin-left: 80px;">Recommandation :</h2>
+                                                    </li>
+                                                  <div class="col-10" style="display: flex; justify-content: space-between;">
+    <div style="background-color: #28a745; color: white; padding: 20px; font-size: 16px; flex: 1; text-align: center; margin-right: 10px; cursor: pointer; border-radius: 5px;">
+        Accepté
+    </div>
+    <div style="background-color: #dc3545; color: white; padding: 10px 20px; font-size: 16px; flex: 1; text-align: center; margin-right: 10px; cursor: pointer; border-radius: 5px;">
+        Rejeté
+    </div>
+    <div style="background-color: #ffc107; color: black; padding: 12px ; font-size: 18px; flex: 2; text-align: center; cursor: pointer; border-radius: 5px;">
+        À étudier
+    </div>
+</div>
+
+                                                  
+                                                  
+                                                </ul>
+                                                
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              
+                <div class="section col-lg-12">
+                  <div class="row">
+            <div class="panel-body inf-content">
+              <div class="card card-style1 border-0">
+                <div class="card-body p-1-9 p-sm-2-3 p-md-6 p-lg-7">
+
+                    <div class="col-lg-12 mb-4 mb-sm-5">
+                      <div class="mb-4 mb-sm-5">
+                        <span class="section-title text-primary mb-3 mb-sm-4"
+                          >Points Positifs</span
+                        >
+                        {% for recomm in recom_O %}
+                        <div class="feedback positive-feedback">
+                          <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                              <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM6.97 10.97a.75.75 0 0 0 1.07 0l3.993-3.992a.75.75 0 1 0-1.06-1.06L7.5 9.44 6.03 7.97a.75.75 0 1 0-1.06 1.06l1.5 1.5z"/>
+                          </svg>
+                       {{recomm}}
+                      </div>
+                      
+                        {% endfor %}
+                      </div>
+
+                     
+                            
+                      <div class="mb-4 mb-sm-5">
+                        <span class="section-title text-primary mb-3 mb-sm-4"
+                          >Points Negatifs</span
+                        >
+                        {% for recomy in recom_N %}
+                        <div class="feedback negative-feedback">
+                          <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-x-circle-fill" viewBox="0 0 16 16">
+                              <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.646-4.646a.5.5 0 0 0-.708 0L8 6.293 5.354 3.646a.5.5 0 1 0-.708.708L7.293 8 4.646 10.646a.5.5 0 0 0 .708.708L8 9.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0 0-.708z"/>
+                          </svg>
+                          {{recomy}}
+                      </div>
+                      
+                      {% endfor %}
+                    </div>
+                      <div>
+                        <span class="section-title text-primary mb-3 mb-sm-4"
+                          >Analyse</span
+                        >
+                        <p>
+                          Many desktop publishing packages and web page editors
+                          now use Lorem Ipsum as their default model text, and a
+                          search for 'lorem ipsum' will uncover many web sites
+                          still in their infancy.
+                        </p>
+                        <p class="mb-1-9">
+                          There are many variations of passages of Lorem Ipsum
+                          available, but the majority have suffered alteration
+                          in some form, by injected humour.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </body>
+  
+</html>
